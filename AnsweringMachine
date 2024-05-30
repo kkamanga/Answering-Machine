@@ -1,0 +1,76 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class AnsweringMachine {
+    private ArrayList<String> messages;
+    private Scanner scanner;
+
+    public AnsweringMachine() {
+        messages = new ArrayList<>();
+        scanner = new Scanner(System.in);
+    }
+
+    public void run() {
+        System.out.println("Welcome to the Answering Machine!");
+        boolean running = true;
+        
+        while (running) {
+            System.out.println("Menu:");
+            System.out.println("1. Leave a message");
+            System.out.println("2. Play messages");
+            System.out.println("3. Delete all messages");
+            System.out.println("4. Exit");
+            System.out.print("Please select an option: ");
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            
+            switch (choice) {
+                case 1:
+                    leaveMessage();
+                    break;
+                case 2:
+                    playMessages();
+                    break;
+                case 3:
+                    deleteAllMessages();
+                    break;
+                case 4:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        
+        System.out.println("Goodbye!");
+    }
+
+    private void leaveMessage() {
+        System.out.print("Enter your message: ");
+        String message = scanner.nextLine();
+        messages.add(message);
+        System.out.println("Message saved!");
+    }
+
+    private void playMessages() {
+        if (messages.isEmpty()) {
+            System.out.println("No messages.");
+        } else {
+            System.out.println("Playing all messages:");
+            for (int i = 0; i < messages.size(); i++) {
+                System.out.println((i + 1) + ". " + messages.get(i));
+            }
+        }
+    }
+
+    private void deleteAllMessages() {
+        messages.clear();
+        System.out.println("All messages deleted.");
+    }
+
+    public static void main(String[] args) {
+        AnsweringMachine answeringMachine = new AnsweringMachine();
+        answeringMachine.run();
+    }
+}
